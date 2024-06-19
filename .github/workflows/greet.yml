@@ -12,16 +12,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
+          script: >
             const { context, getOctokit } = require('@actions/github');
-
             const token = process.env.GITHUB_TOKEN;
             const octokit = getOctokit(token);
 
             const pr = context.payload.pull_request;
             const commentBody = `Hey there! 👋
 
-Thanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.`;
+            Thanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.`;
 
             await octokit.rest.issues.createComment({
               owner: context.repo.owner,
