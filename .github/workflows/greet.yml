@@ -11,15 +11,15 @@ jobs:
       - name: Greet the user
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.MY_GITHUB_TOKEN }}  # Replace with your secret name
           script: |
             const { context, getOctokit } = require('@actions/github');
 
-            const token = process.env.GITHUB_TOKEN;
+            const token = process.env.MY_GITHUB_TOKEN;  # Replace with your secret name
             const octokit = getOctokit(token);
 
             const pr = context.payload.pull_request;
-            const commentBody = `Hey there! 👋\n\nThanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.`;
+            const commentBody = `Hey there! \n\nThanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.`;
 
             await octokit.rest.issues.createComment({
               owner: context.repo.owner,
