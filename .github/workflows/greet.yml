@@ -13,6 +13,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+
             const { context, GitHub } = require('github-script');
             
             async function run() {
@@ -29,3 +30,4 @@ jobs:
             }
 
             run();
+
