@@ -13,21 +13,21 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { getOctokit, context } = require('@actions/github');
 
-            const token = process.env.GITHUB_TOKEN;
-            const octokit = getOctokit(token);
+            const { context, GitHub } = require('github-script');
+            
+            async function run() {
+              const github = new GitHub();
+              const pr = context.payload.pull_request;
+              const commentBody = `Hey there! 👋\n\nThanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.`;
 
-            const pr = context.payload.pull_request;
-            const commentBody = `
-              Hey there!
+              await github.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: commentBody
+              });
+            }
 
-              Thanks for taking the time to send in this pull request. We're happy to have your contribution! If you have any questions or need any help, feel free to ask.
-            `;
+            run();
 
-            await octokit.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              body: commentBody
-            });
